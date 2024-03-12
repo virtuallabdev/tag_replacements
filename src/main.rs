@@ -2,16 +2,17 @@ use std::fs::File;
 use std::io::Read;
 use regex::Regex;
 
-fn main() -> std::io::Result<()> {
+
+fn worker() -> std::io::Result<()> {
     let mut file_content = String::new();
     let mut tag_vec = Vec::new();
 
     // Read the XML file content
-    let mut file = File::open("your_file.xml")?;
+    let mut file = File::open("C:/Users/user/Documents/repos/rust/tag_replacements/test_files/test.xml")?;
     file.read_to_string(&mut file_content)?;
 
     // Regex to capture opening and closing HTML tags
-    let tag_regex = Regex::new(r"<[^>]+>")?;
+    let tag_regex = Regex::new(r"<[^>]+>").unwrap();
 
     // Find all HTML tags and store them in the vector
     for cap in tag_regex.find_iter(&file_content) {
@@ -35,6 +36,12 @@ fn main() -> std::io::Result<()> {
 
     // Print the final content with restored tags
     println!("Content with restored tags: {}", final_content);
+    Ok(())
+}
 
+
+
+fn main() -> std::io::Result<()> {
+    worker()?;
     Ok(())
 }
